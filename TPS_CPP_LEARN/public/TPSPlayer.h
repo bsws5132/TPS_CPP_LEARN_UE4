@@ -27,10 +27,13 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:
+
+	/*캐릭터 움직임과 입력 처리를 정의하는 곳*/
+
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	class USpringArmComponent* springArmComp;
 
-	UPROPERTY(VisibleAnywhere, Category = Camera)
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	class UCameraComponent* tpsCamComp;
 
 
@@ -64,17 +67,59 @@ public:
 
 public:
 
+	/*총에 관련된 것들을 모두 정의하는 곳*/
+
 	// 총 스켈레탈메시
 
 	UPROPERTY(VisibleAnywhere, Category = GunMesh)
 	class USkeletalMeshComponent* gunMeshComp;
 
+	//저격총 스테틱메쉬 컴포넌트 정의
+	UPROPERTY(VisibleAnywhere, Category = GunMesh)
+	class UStaticMeshComponent* sniperGunComp;
+
+
 	//총알 공장
 	UPROPERTY(EditDefaultsOnly, Category = BulletFactory)
 	TSubclassOf<class ABullet> bulletFactory;
+	
+    //총알 피격시 이펙트 공장
+	UPROPERTY(EditAnywhere, Category = BulletEffect)
+	class UParticleSystem* bulletEffectFactory;
+
 
 	// 총알 발사 처리 함수
 	void InputFire();
 
+
+
+
+	//유탄총으로 변경
+	void ChangeToGrenadeGun();
+
+	//저격총으로 변경
+	void ChangeToSniperGun();
+
+
+
+
+	// 스나이퍼 조준
+	void SniperAim();
+
+
+
+
+
+	// 스나이퍼 조준중인지 여부
+	bool bSniperAim = false;
+	UPROPERTY(EditDefaultsOnly, Category = SniperUI)
+	TSubclassOf<class UUserWidget> sniperUIFactory;
+
+	// 유탄총 사용 여부
+	bool bUsingGrenadeGun = true;
+
+
+	// 스나이퍼 UI 위젯 인스턴스
+	class UUserWidget* _sniperUI;
 
 };

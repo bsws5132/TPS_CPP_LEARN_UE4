@@ -52,7 +52,8 @@ ABullet::ABullet()
 	//반동 값
 	movementComp->Bounciness = 0.3f;
 
-
+	// 생명 시간 주기
+	//InitialLifeSpan = 2.0f;
 
 }
 
@@ -61,6 +62,8 @@ void ABullet::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	FTimerHandle deathTimer;
+	GetWorld()->GetTimerManager().SetTimer(deathTimer, this, &ABullet::Die, 2.0f, false);
 }
 
 // Called every frame
@@ -70,3 +73,7 @@ void ABullet::Tick(float DeltaTime)
 
 }
 
+void ABullet::Die()
+{
+	Destroy();
+}
