@@ -127,6 +127,12 @@ void ATPSPlayer::BeginPlay()
 
 	_sniperUI = CreateWidget(GetWorld(), sniperUIFactory);
 
+	// 2. 일반 조준 UI 크로스헤어 인스턴스를 생성합니다.
+	_crosshairUI = CreateWidget(GetWorld(), crosshairUIFactory);
+
+	// 3. 일반 조준 UI 등록
+	_crosshairUI->AddToViewport();
+
 	// 기본으로 스나이퍼건을 사용하도록 설정
 	ChangeToSniperGun();
 }
@@ -317,6 +323,9 @@ void ATPSPlayer::SniperAim()
 
 		//카메라의 시야각을 조정
 		tpsCamComp->SetFieldOfView(20.0f);
+
+		// 일반 조준 UI를 제거함
+		_crosshairUI->RemoveFromParent();
 	}
 
 
@@ -331,6 +340,9 @@ void ATPSPlayer::SniperAim()
 
 		//3. 카메라 시야각 원래대로 복원
 		tpsCamComp->SetFieldOfView(90.0f);
+
+		//4. 일반 조준 UI 등록
+		_crosshairUI->AddToViewport();
 	}
 	
 	

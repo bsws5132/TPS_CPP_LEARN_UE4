@@ -111,15 +111,26 @@ public:
 
 
 	// 스나이퍼 조준중인지 여부
-	bool bSniperAim = false;
-	UPROPERTY(EditDefaultsOnly, Category = SniperUI)
-	TSubclassOf<class UUserWidget> sniperUIFactory;
+	bool bSniperAim = false; 
+
+
 
 	// 유탄총 사용 여부
 	bool bUsingGrenadeGun = true;
 
 
+	//저격총 조준 UI
+	UPROPERTY(EditDefaultsOnly, Category = SniperUI)
+	TSubclassOf<class UUserWidget> sniperUIFactory;
+
+	//일반 조준 크로스헤어UI 위젯
+	UPROPERTY(EditDefaultsOnly, Category = SniperUI)
+	TSubclassOf<class UUserWidget> crosshairUIFactory;
+
 	// 스나이퍼 UI 위젯 인스턴스
 	class UUserWidget* _sniperUI;
+
+	//크로스헤어 인스턴스
+	class UUserWidget* _crosshairUI;
 
 };
